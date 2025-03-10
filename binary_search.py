@@ -2,50 +2,73 @@ import sys
 import re
 from collections import deque
 
-#compile and run command: python3 binary_match.py test1.txt
+#compile and run command: python3 binary_search.py test1.txt
 
 
-def binary_search(array):
-  return 0
+def binary_search(array, start, end, target):
 
-def print(matches):
-  #write to output file
-  with open('output.txt', 'w') as file:
-    #print stable matching
-    file.write("Binary Search\n")
-
-
-
-def parse(file):
-
-  #get first line
-  line = file.readline()
-
-  #parse n
-  n = 0
-  n_pattern = r"\s*n\s*=\s*(\d+)"
-  isN = re.match(n_pattern, line)
-  if isN:
-    n = int(isN.group(1)) #guarenteed to be int
-  else:
-    print("First line is not n declaration! Parsing failed.")
+  if(end < start):
+    #target not found
     return -1
+  
+  #find mid
+  mid = (end + start) // 2
 
-  return 0
-
+  if(array[mid] == target):
+    #target found
+    return mid
+  elif (array[mid] < target):
+    #target greater than mid -> search right half
+    return binary_search(array, mid + 1, end, target)
+  elif (array[mid] > target):
+    #target less than mid -> search left half
+    return binary_search(array, start, mid - 1, target)
+  
+  return -1
 
 def main():
-  filePath = ""
-  if (len(sys.argv) > 1):
-    filePath = sys.argv[1]
-  else:
-    print("Input file path was not passed to main!")
-  
-  try:
-    with open(filePath, "r") as file:
-      parse(file)
-  except FileNotFoundError:
-    print("File path did not open file!")
+  go = True
+  while(go):
+    menu = "--Menu--\n1) Find target from sorted list.\n2) Exit"
+    print(menu)
+    try:
+      option = int(input("Enter the option number (1 or 2): "))
+    except ValueError:
+      print("Given option was not an integer! Please try again.")
+      continue
+
+    if(option == 1):
+
+      #get sorted list from user
+      isNums = False
+      while(not isNums):
+        try:
+          nums = list(map(int, input("Enter sorted list of numbers separated by spaces:\n").split()))
+          isNums = True
+        except ValueError:
+          print("Given list of numbers were not integers! Please re-enter list")
+          isNums = False
+
+      #get target from user
+      isTarget = False
+      while(not isTarget):
+        try:
+          target = int(input("Enter the target value: "))
+          isTarget = True
+        except ValueError:
+          print("Given target was not an integer! Please re-enter your target")
+          isTarget = False
+      
+      index = binary_search(nums, 0, len(nums) - 1, target)
+      if(index == -1):
+        print("Target was not found!")
+      else:
+        print("Target found at index: "+str(index))
+    elif (option == 2):
+      print("Goodbye!")
+      go = False
+    else:
+      print("Given option did not correspond to a menu number! Please try again.")
 
 
 if __name__ == "__main__":
