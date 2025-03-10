@@ -1,10 +1,12 @@
 # Project: Binary Search
 Members: Daveyon Brown, Mary Hanson
+
 Date: April 22, 2025
 
 # Project Description
 
 Binary search is a divide and conquer algorithm, used to find elements in a sorted list.​
+
 How it works​:
 - Starts with the middle element of a sorted array ​
 - If it’s the targeted value, element will be returned ​
