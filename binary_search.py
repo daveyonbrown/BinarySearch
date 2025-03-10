@@ -2,8 +2,7 @@ import sys
 import re
 from collections import deque
 
-#compile and run command: python3 binary_search.py test1.txt
-
+#compile and run command: python3 binary_search.py
 
 def binary_search(array, start, end, target):
 
@@ -29,7 +28,7 @@ def binary_search(array, start, end, target):
 def main():
   go = True
   while(go):
-    menu = "--Menu--\n1) Find target from sorted list.\n2) Exit"
+    menu = "--Menu--\n1) Find target from sorted list.\n2) Exit."
     print(menu)
     try:
       option = int(input("Enter the option number (1 or 2): "))
