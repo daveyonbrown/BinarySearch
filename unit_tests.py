@@ -56,10 +56,10 @@ class BinSearchTests(unittest.TestCase):
 
   def test_range_true(self):
     times = []
-    for end in range(1, 20):
+    for end in range(1, 200):
       start_time = time.perf_counter()
       array = list(range(1,end))
-      target = 1008
+      target = 0
       expectedIndex = -1
       actualIndex = binary_search(array, 0, len(array) - 1, target)
       end_time = time.perf_counter()

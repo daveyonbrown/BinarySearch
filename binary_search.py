@@ -5,13 +5,16 @@ from collections import deque
 #compile and run command: python3 binary_search.py
 
 def binary_search(array, start, end, target):
+  if(len(array) == 0):
+    #edge case -> array contains no elements
+    return -1
 
   if(end < start):
     #target not found
     return -1
   
-  #find mid
-  mid = (end + start) // 2
+  #find mid - avoid inter
+  mid = start + (end - start) // 2
 
   if(array[mid] == target):
     #target found
