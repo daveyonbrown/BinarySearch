@@ -1,9 +1,10 @@
 import sys
 import re
 from collections import deque
+from memory_profiler import profile # type: ignore
 
 #compile and run command: python3 binary_search.py
-
+@profile(precision=4)
 def binary_search(array, start, end, target):
   if(len(array) == 0):
     #edge case -> array contains no elements
@@ -27,6 +28,34 @@ def binary_search(array, start, end, target):
     return binary_search(array, start, mid - 1, target)
   
   return -1
+
+@profile(precision=4)
+def binary_search_iterative(array, target):
+  if(len(array) == 0):
+    #edge case -> array contains no elements
+    return -1
+  
+  start = 0
+  end = len(array) - 1
+  
+  #iteratively find target
+  while(start <= end):
+  
+    #find mid - avoid integer overflow
+    mid = start + (end - start) // 2
+
+    if(array[mid] == target):
+      #target found
+      return mid
+    elif (array[mid] < target):
+      #target greater than mid -> search right half
+      start = mid + 1
+    elif (array[mid] > target):
+      #target less than mid -> search left half
+      end = mid - 1
+    
+  return -1
+
 
 def main():
   go = True
@@ -74,5 +103,8 @@ def main():
 
 
 if __name__ == "__main__":
-  main()
+  array = list(range(1,101))
+  binary_search_iterative(array, 0)
+
+  #main()
   

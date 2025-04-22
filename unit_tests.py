@@ -1,5 +1,6 @@
 import unittest
 import time
+import tracemalloc
 from binary_search import binary_search
 
 #python3 unit_tests.py 
@@ -67,6 +68,5 @@ class BinSearchTests(unittest.TestCase):
       self.assertEqual(expectedIndex, actualIndex)
     print(times)
 
-
 if __name__ == '__main__':
-        unittest.main()
+    unittest.main()
