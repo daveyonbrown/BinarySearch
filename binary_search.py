@@ -1,36 +1,18 @@
 import sys
 import re
 from collections import deque
-from memory_profiler import profile # type: ignore
+#from memory_profiler import profile # type: ignore <-- used when running memory profiler to get space complexity graph
+
+#Run memory profiler in terminal to get space complexity graph (must uncomment related code & comment main):
+  # pip install memory_profiler
+  # mprof run binary_search.py
+  # mprof plot
 
 #compile and run command: python3 binary_search.py
-@profile(precision=4)
-def binary_search(array, start, end, target):
-  if(len(array) == 0):
-    #edge case -> array contains no elements
-    return -1
 
-  if(end < start):
-    #target not found
-    return -1
-  
-  #find mid - avoid inter
-  mid = start + (end - start) // 2
-
-  if(array[mid] == target):
-    #target found
-    return mid
-  elif (array[mid] < target):
-    #target greater than mid -> search right half
-    return binary_search(array, mid + 1, end, target)
-  elif (array[mid] > target):
-    #target less than mid -> search left half
-    return binary_search(array, start, mid - 1, target)
-  
-  return -1
-
-@profile(precision=4)
-def binary_search_iterative(array, target):
+#@profile(precision=4) <-- used when running memory profiler to get space complexity graph
+def binary_search(array, target):
+  #ITERATIVE BINARY SEARCH <-- use this for testing & main
   if(len(array) == 0):
     #edge case -> array contains no elements
     return -1
@@ -54,6 +36,33 @@ def binary_search_iterative(array, target):
       #target less than mid -> search left half
       end = mid - 1
     
+  return -1
+
+#@profile(precision=4) <-- used when running memory profiler to get space complexity graph
+def binary_search_recursive(array, start, end, target):
+  #function is used to test space complexity ONLY
+  #RECURSIVE BINARY SEARCH - implemented this first but optimized to iterative
+  if(len(array) == 0):
+    #edge case -> array contains no elements
+    return -1
+
+  if(end < start):
+    #target not found
+    return -1
+  
+  #find mid - avoid inter
+  mid = start + (end - start) // 2
+
+  if(array[mid] == target):
+    #target found
+    return mid
+  elif (array[mid] < target):
+    #target greater than mid -> search right half
+    return binary_search_recursive(array, mid + 1, end, target)
+  elif (array[mid] > target):
+    #target less than mid -> search left half
+    return binary_search_recursive(array, start, mid - 1, target)
+  
   return -1
 
 
@@ -90,7 +99,7 @@ def main():
           print("Given target was not an integer! Please re-enter your target")
           isTarget = False
       
-      index = binary_search(nums, 0, len(nums) - 1, target)
+      index = binary_search(nums, target)
       if(index == -1):
         print("Target was not found!")
       else:
@@ -103,8 +112,9 @@ def main():
 
 
 if __name__ == "__main__":
-  array = list(range(1,101))
-  binary_search_iterative(array, 0)
+  #array = list(range(1,101)) <--for running memory profiler
+  #binary_search(array, 0) <--for running memory profiler
+  #binary_search_recursive(array, 0) <--for running memory profiler
 
-  #main()
+  main()
   

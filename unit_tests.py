@@ -1,6 +1,5 @@
 import unittest
 import time
-import tracemalloc
 from binary_search import binary_search
 
 #python3 unit_tests.py 
@@ -12,7 +11,7 @@ class BinSearchTests(unittest.TestCase):
     array = [1]
     target = 1
     expectedIndex = 0
-    actualIndex = binary_search(array, 0, len(array) - 1, target)
+    actualIndex = binary_search(array, target)
     self.assertEqual(expectedIndex, actualIndex)
 
   def test_small_false(self):
@@ -20,7 +19,7 @@ class BinSearchTests(unittest.TestCase):
     array = [1]
     target = 2
     expectedIndex = -1
-    actualIndex = binary_search(array, 0, len(array) - 1, target)
+    actualIndex = binary_search(array, target)
     self.assertEqual(expectedIndex, actualIndex)
 
   def test_medium_true(self):
@@ -28,7 +27,7 @@ class BinSearchTests(unittest.TestCase):
     array = list(range(1,101))
     target = 34
     expectedIndex = 33
-    actualIndex = binary_search(array, 0, len(array) - 1, target)
+    actualIndex = binary_search(array, target)
     self.assertEqual(expectedIndex, actualIndex)
 
   def test_medium_false(self):
@@ -36,7 +35,7 @@ class BinSearchTests(unittest.TestCase):
     array = list(range(1,101))
     target = 199
     expectedIndex = -1
-    actualIndex = binary_search(array, 0, len(array) - 1, target)
+    actualIndex = binary_search(array, target)
     self.assertEqual(expectedIndex, actualIndex)
 
   def test_large_true(self):
@@ -44,7 +43,7 @@ class BinSearchTests(unittest.TestCase):
     array = list(range(1,1001))
     target = 756
     expectedIndex = 755
-    actualIndex = binary_search(array, 0, len(array) - 1, target)
+    actualIndex = binary_search(array, target)
     self.assertEqual(expectedIndex, actualIndex)
 
   def test_large_false(self):
@@ -52,21 +51,23 @@ class BinSearchTests(unittest.TestCase):
     array = list(range(1,1001))
     target = 1008
     expectedIndex = -1
-    actualIndex = binary_search(array, 0, len(array) - 1, target)
+    actualIndex = binary_search(array, target)
     self.assertEqual(expectedIndex, actualIndex)
 
-  def test_range_true(self):
+  def test_range_worst_case(self):
+    #gets time for inputs from 1, 200
+    #also tests all outputs for every input size given
     times = []
     for end in range(1, 200):
       start_time = time.perf_counter()
       array = list(range(1,end))
       target = 0
       expectedIndex = -1
-      actualIndex = binary_search(array, 0, len(array) - 1, target)
+      actualIndex = binary_search(array, target)
       end_time = time.perf_counter()
       times.append(end_time - start_time)
       self.assertEqual(expectedIndex, actualIndex)
-    print(times)
+    #print(times) <-- used for matplotlib graph of time complexity
 
 if __name__ == '__main__':
     unittest.main()
